@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meditation</title>
+  <style>
+    body { font-family: 'Roboto', sans-serif; text-align: center; padding: 40px; background-color: #f0f8ff; }
+    h1 { font-size: 2.5em; margin-bottom: 20px; }
+    .circle {
+      width: 200px;
+      height: 200px;
+      margin: 40px auto;
+      border-radius: 50%;
+      background-color: #add8e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 2px;
+      left: 10px;
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s;
+    }
+
+    .videos {
+      margin-top: 30px;
+    }
+    .videos iframe {
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <button onclick="goBack()" class="back-button">⬅ Back</button>
+  <h1>Meditation Timer</h1>
+  <div class="circle" id="meditateCircle">60s</div>
+  <p id="message">Close your eyes and focus on your breath...</p>
+
+  <div class="videos">
+    <h2>Guided Meditation Techniques</h2>
+    <iframe src="https://www.youtube.com/embed/inpok4MKVLM" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/ZToicYcHIOU" frameborder="0" allowfullscreen></iframe>
+  </div>
+  
+  <script>
+    let time = 60;
+    const circle = document.getElementById('meditateCircle');
+    const message = document.getElementById('message');
+
+    const timer = setInterval(() => {
+      time--;
+      circle.textContent = time + 's';
+      if (time === 0) {
+        clearInterval(timer);
+        message.textContent = "Well done! You've completed your meditation.";
+      }
+    }, 1000);
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

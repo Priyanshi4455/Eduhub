@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coping with Anxiety</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: 'Roboto', sans-serif; background-color: #fdfd96; text-align: center; padding: 40px; }
+    h1 { font-size: 2.5em; margin-bottom: 20px; }
+    textarea {
+      width: 80%;
+      height: 100px;
+      padding: 10px;
+      font-size: 1.1em;
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ff7f50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      max-width: 300px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="goBack()" class="back-button">⬅ Back</button>
+  <header>
+    <div class="header-content">
+      <h1>Coping with Anxiety</h1>
+      <p>Strategies to deal with anxious thoughts</p>
+    </div>
+  </header>
+
+  <main class="section">
+    <h2>Anxiety Coping Tips</h2>
+    <ul>
+      <li>Label your emotions</li>
+      <li>Write in a journal</li>
+      <li>Limit caffeine intake</li>
+      <li>Use grounding techniques</li>
+      <li>Try box breathing (4-4-4-4)</li>
+    </ul>
+  </main>
+
+   <p>Write down what's troubling you:</p>
+  <textarea id="anxietyInput" placeholder="Type your anxiety here..."></textarea>
+  <br>
+  <button onclick="saveAnxiety()">Save Entry</button>
+  <div class="cards" id="anxietyCards"></div>
+  <footer>
+    <p>&copy; 2025 Student Hub - Mental Health</p>
+  </footer>
+</body>
+<script>
+    function saveAnxiety() {
+      const input = document.getElementById('anxietyInput').value;
+      if (input) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<p>${input}</p>`;
+        document.getElementById('anxietyCards').appendChild(card);
+        document.getElementById('anxietyInput').value = '';
+      } else {
+        alert('Please enter something to save.');
+      }
+    }
+  function goBack() {
+    window.history.back();
+  }
+</script>
+</html>

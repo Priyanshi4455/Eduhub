@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stress Relief</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #000000;
+      color: aliceblue;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 2px;
+      left: 10px;
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s;
+    }
+
+    .circle {
+      width: 200px;
+      height: 200px;
+      margin: 40px auto;
+      border-radius: 50%;
+      background-color: #2e3ae1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .instructions {
+      font-size: 1.5em;
+      margin-top: 30px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Stress Relief Breathing</h1>
+  <button onclick="goBack()" class="back-button">⬅ Back</button>
+  <div class="circle" id="meditateCircle">60s</div>
+  <p id="message">Close your eyes and focus on your breath...</p>
+  <div class="instructions" id="breathInstruction">Get ready to breathe...</div>
+  <button id="restartBtn" onclick="location.reload()">Start</button>
+
+  <!-- Audio elements -->
+  <audio id="audio-inhale" src="inhale (1).mp3"></audio>
+  <audio id="audio-hold" src="hold.mp3"></audio>
+  <audio id="audio-exhale" src="exhale.mp3"></audio>
+  <audio id="audio-relax" src="relax.mp3"></audio>
+
+  <script>
+    const instructions = [
+      { text: "Take a deep breath in...", audioId: "audio-inhale" },
+      { text: "Hold your breath...", audioId: "audio-hold" },
+      { text: "Exhale slowly...", audioId: "audio-exhale" },
+      { text: "Relax...", audioId: "audio-relax" }
+    ];
+
+    let time = 60;
+    const circle = document.getElementById('meditateCircle');
+    const message = document.getElementById('message');
+    const textEl = document.getElementById('breathInstruction');
+    const restartBtn = document.getElementById('restartBtn');
+    let breathInterval;
+    restartBtn.textContent = "Start";
+
+
+    let index = 0;
+
+    function cycleBreath() {
+      const current = instructions[index];
+      textEl.textContent = current.text;
+      const audio = document.getElementById(current.audioId);
+      audio.play();
+      index = (index + 1) % instructions.length;
+    }
+
+    cycleBreath();
+    breathInterval = setInterval(cycleBreath, 4000);
+
+    const timer = setInterval(() => {
+      time--;
+      circle.textContent = time + 's';
+      if (time === 0) {
+        clearInterval(timer);
+        clearInterval(breathInterval);
+        message.textContent = "Session complete. To do again, press Start.";
+        textEl.textContent = "";
+        restartBtn.style.display = 'inline-block';
+      }
+    }, 1000);
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
